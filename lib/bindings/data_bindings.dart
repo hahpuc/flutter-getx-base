@@ -15,32 +15,28 @@ class DataBindings implements Bindings {
   }
 
   Future _provideDioClients() async {
-    Get.lazyPut<Dio>(
-      () => NetworkProvide.provideDio(),
-      tag: (Dio).toString(),
-      fenix: true,
-    );
+    final dio = NetworkProvide.provideDio();
 
-    Get.lazyPut<DioClient>(
-      () => DioClient(Get.find<Dio>()),
+    Get.put<DioClient>(
+      DioClient(dio),
       tag: (DioClient).toString(),
-      fenix: true,
+      permanent: true,
     );
   }
 
   Future _provideServices() async {
-    Get.lazyPut<AppService>(
-      () => AppService(Get.find<DioClient>()),
-      tag: (AppService).toString(),
-      fenix: true,
+    Get.put<AppService>(
+      AppService(Get.find(tag: (DioClient).toString())),
+      permanent: true,
     );
   }
 
   Future _provideRepository() async {
-    Get.lazyPut<AppRepository>(
-      () => AppRepository(Get.find<AppService>(), Get.find<PrefHelper>()),
+    Get.put(
+      () => AppRepository(Get.find(tag: (AppService).toString()),
+          Get.find(tag: (PrefHelper).toString())),
       tag: (AppRepository).toString(),
-      fenix: true,
+      permanent: true,
     );
   }
 }

@@ -10,15 +10,12 @@ class LocalSourceBindings implements Bindings {
   }
 
   Future _providePrefProvider() async {
-    await Get.putAsync<SharedPreferences>(
-      () => LocalProvide.provideSharedPreferences(),
-      tag: (SharedPreferences).toString(),
-    );
+    final prefs = await LocalProvide.provideSharedPreferences();
 
-    Get.lazyPut<PrefHelper>(
-      () => PrefHelper(Get.find<SharedPreferences>()),
+    Get.put(
+      PrefHelper(prefs),
       tag: (PrefHelper).toString(),
-      fenix: true,
+      permanent: true,
     );
   }
 }

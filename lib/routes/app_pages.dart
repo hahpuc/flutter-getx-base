@@ -4,7 +4,7 @@ import 'package:flutter_getx_base/routes/routes.dart';
 import 'package:get/get.dart';
 
 class AppPages {
-  static final routes = [
+  static final getRoutes = [
     GetPage(
       name: AppRoutes.demo,
       page: () => const DemoPage(),

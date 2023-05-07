@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class InitialBinding implements Bindings {
   @override
   void dependencies() {
-    LocalSourceBindings().dependencies();
     DataBindings().dependencies();
+    LocalSourceBindings().dependencies();
   }
 }

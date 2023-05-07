@@ -1,20 +1,19 @@
 class EnvConfig {
-  late final String appName;
-  late final String baseUrl;
+  late String appName;
+  late String baseUrl;
 
-  static final EnvConfig instance = EnvConfig._internal();
+  static final EnvConfig _instance = EnvConfig._internal();
+
+  static void instantiate({required String appName, required String baseUrl}) {
+    _instance.appName = appName;
+    _instance.baseUrl = baseUrl;
+  }
+
+  factory EnvConfig() {
+    return _instance;
+  }
+
+  static EnvConfig get instance => _instance;
 
   EnvConfig._internal();
-
-  factory EnvConfig.instantiate({
-    required String appName,
-    required String baseUrl,
-  }) {
-    if (instance.appName.isNotEmpty) return instance;
-
-    instance.appName = appName;
-    instance.baseUrl = baseUrl;
-
-    return instance;
-  }
 }

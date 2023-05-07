@@ -10,14 +10,9 @@ import 'package:flutter_getx_base/routes/routes.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   static final _envConfig = EnvConfig.instance;
 
   @override
@@ -26,7 +21,7 @@ class _MyAppState extends State<MyApp> {
       title: _envConfig.appName,
       initialRoute: AppRoutes.initialRoute,
       initialBinding: InitialBinding(),
-      getPages: AppPages.routes,
+      getPages: AppPages.getRoutes,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -46,5 +41,15 @@ class _MyAppState extends State<MyApp> {
       builder: EasyLoading.init(),
       home: const DemoPage(),
     );
+  }
+
+  static Future<void> appRunner() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+
+    print("LONGDB AppRunner: ${_envConfig.appName}");
+
+    return runApp(const MyApp());
   }
 }
