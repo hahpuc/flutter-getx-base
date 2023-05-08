@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_getx_base/core/controller/base_view.dart';
 import 'package:flutter_getx_base/data/network/services/app_service.dart';
-import 'package:flutter_getx_base/data/repository/app_repository.dart';
 import 'package:flutter_getx_base/presentation/pages/demo/demo_controller.dart';
 import 'package:get/get.dart';
 
-class DemoPage extends StatefulWidget {
-  const DemoPage({super.key});
+class DemoPage extends BaseView<DemoController> {
+  const DemoPage({Key? key}) : super(key: key);
 
-  @override
-  State<DemoPage> createState() => _DemoPageState();
-}
-
-class _DemoPageState extends State<DemoPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.red,
       child: Center(
-          child: ElevatedButton(
-        onPressed: () {
-          Get.find<AppService>().getMoviePopular(1);
-        },
-        child: const Text("Login"),
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                controller.getMovies(1);
+              },
+              child: const Text("GET MOVIES"),
+            ),
+            const SizedBox(height: 16.0),
+            Obx(() => Text(controller.resultApi.value))
+          ],
+        ),
+      ),
     );
   }
 }

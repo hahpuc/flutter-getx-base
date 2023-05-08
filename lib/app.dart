@@ -5,6 +5,7 @@ import 'package:flutter_getx_base/bindings/init_binding.dart';
 import 'package:flutter_getx_base/env_config.dart';
 import 'package:flutter_getx_base/generated/l10n.dart';
 import 'package:flutter_getx_base/presentation/pages/demo/demo_page.dart';
+import 'package:flutter_getx_base/presentation/pages/splash/splash_page.dart';
 import 'package:flutter_getx_base/routes/app_pages.dart';
 import 'package:flutter_getx_base/routes/routes.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.initialRoute,
       initialBinding: InitialBinding(),
       getPages: AppPages.getRoutes,
+      transitionDuration: const Duration(milliseconds: 200),
+      defaultTransition: Transition.rightToLeft,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -39,7 +42,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
-      home: const DemoPage(),
+      home: const SplashPage(),
     );
   }
 
@@ -47,8 +50,6 @@ class MyApp extends StatelessWidget {
     WidgetsFlutterBinding.ensureInitialized();
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-
-    print("LONGDB AppRunner: ${_envConfig.appName}");
 
     return runApp(const MyApp());
   }

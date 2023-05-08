@@ -1,6 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_getx_base/bindings/provide/network_provide.dart';
-import 'package:flutter_getx_base/data/local/pref/pref_helper.dart';
 import 'package:flutter_getx_base/data/network/client/dio_client.dart';
 import 'package:flutter_getx_base/data/network/services/app_service.dart';
 import 'package:flutter_getx_base/data/repository/app_repository.dart';
@@ -19,23 +17,20 @@ class DataBindings implements Bindings {
 
     Get.put<DioClient>(
       DioClient(dio),
-      tag: (DioClient).toString(),
       permanent: true,
     );
   }
 
   Future _provideServices() async {
     Get.put<AppService>(
-      AppService(Get.find(tag: (DioClient).toString())),
+      AppService(Get.find()),
       permanent: true,
     );
   }
 
   Future _provideRepository() async {
     Get.put(
-      () => AppRepository(Get.find(tag: (AppService).toString()),
-          Get.find(tag: (PrefHelper).toString())),
-      tag: (AppRepository).toString(),
+      AppRepository(Get.find()),
       permanent: true,
     );
   }
